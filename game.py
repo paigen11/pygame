@@ -1,26 +1,21 @@
-import sys #we will need sys so the user can quit
+
 import pygame #duh
+from hero import Hero #bring in the hero class with all its methods and glory
+from settings import Settings
+import game_functions as gf
 
 #set up the main core function
 def run_game():
-	pygame.init()
-	size = width, height = 720,540
-	speed = [2, 2]
-	black = 0, 0, 0
-	screen = pygame.display.set_mode(size)
-	ball = pygame.image.load("ball.gif")
-	ballrect = ball.get_rect()
-	print ballrect
-	while 1:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT: sys.exit()
-		ballrect = ballrect.move(speed)
-		if ballrect.left < 0 or ballrect.right > width:
-			speed[0] = -speed[0]
-		if ballrect.top < 0 or ballrect.bottom > height:
-			speed[1] = -speed[1]
-		screen.fill(black)
-		screen.blit(ball, ballrect)
-		pygame.display.flip()
+	pygame.init() # initialize all the pygame modules
+	game_settings = Settings() #create an instance of settings class
+	screen = pygame.display.set_mode(game_settings.screen_size) #set the screen size with set_mode
+	pygame.display.set_caption("Monster Attack") #set the message on the status bar
+	hero = Hero(screen) # set a variable equal to the class and pass it the screen
+
+	while 1: #run this loop forever...
+		gf.check_events(hero) #call gf (aliased from game_functions module) and get the check_events
+		hero.update() #update the hero flags
+		gf.update_screen(game_settings, screen, hero) # call the update_screen method
+				
 
 run_game() #start the game	
