@@ -5,7 +5,7 @@ class Hero(object):
 		self.screen = screen #give the hero the ability to control the screen
 
 		# Load the hero image, get it's rect
-		self.image = pygame.image.load('ball.gif')
+		self.image = pygame.image.load('images/hero.png')
 		self.rect = self.image.get_rect() #pygame gives us get_rect on any object so we can get some dimensions and location
 		self.screen_rect = screen.get_rect() #assign a var so the hero class knows how 
 
@@ -23,10 +23,10 @@ class Hero(object):
 			self.rect.centerx += 10 #move the hero to the right
 		elif self.moving_left and self.rect.left > self.screen_rect.left:
 			self.rect.centerx -= 10 #move the hero to the left
-		elif self.moving_up and self.rect.up < self.screen_rect.up:
-			self.rect.centery -= 10 #move the hero up
-		elif self.moving_down and self.rect.down > self.screen_rect.down:
-			self.rect.centery += 10 #move the hero down	
+		elif self.moving_up and self.rect.top > self.screen_rect.top:
+			self.rect.y -= 10 #move the hero up
+		elif self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+			self.rect.y += 10 #move the hero down	
 
 	def draw_me(self):
 		self.screen.blit(source = self.image, dest = self.rect) #draw the surface... (the image, the where)
