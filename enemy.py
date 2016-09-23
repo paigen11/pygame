@@ -1,4 +1,5 @@
 import math
+from random import randint
 import pygame
 from pygame.sprite import Sprite
 
@@ -11,12 +12,12 @@ class Enemy(Sprite):
 		self.rect = self.enemy_image.get_rect()
 		self.screen_rect = screen.get_rect()
 
-		self.rect.centerx = self.screen_rect.centerx
+		self.rect.centerx = randint(self.screen_rect.left, self.screen_rect.right)
 		self.rect.top = self.screen_rect.top
 		# self.speed = game_settings.enemy_speed
 		# self.y = self.rect.y
 
-	def update(self, hero, speed = 2):
+	def update(self, hero, speed = 3):
 		dx, dy = self.rect.x - hero.rect.x, self.rect.y - hero.rect.y
 		dist = math.hypot(dx, dy)
 		dx, dy = dx / dist, dy / dist
