@@ -1,12 +1,12 @@
 import pygame.font
 
 class Scoreboard(object):
-	def __init__(self, screen, scoreboard_text, enemy_count):
+	def __init__(self, screen, scoreboard_text):
 		self.screen = screen
 		self.screen_rect = screen.get_rect()
 
-		self.width = 200
-		self.height = 150
+		self.width = 250
+		self.height = 100
 		self.scoreboard_color = 230, 153, 255
 		self.text_color = 255,255,255
 		self.font = pygame.font.Font(None, 40)

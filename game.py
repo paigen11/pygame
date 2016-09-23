@@ -15,7 +15,6 @@ def run_game():
 	screen = pygame.display.set_mode(game_settings.screen_size) #set the screen size with set_mode
 	pygame.display.set_caption("Monster Attack") #set the message on the status bar
 	hero = Hero(screen) # set a variable equal to the class and pass it the screen
-	count = 0
 	
 	#music
 	pygame.mixer.music.load('sounds/music.wav')
@@ -25,7 +24,9 @@ def run_game():
 	play_button = Play_button(screen, 'Press to begin')
 
 	# create a scoreboard object
-	scoreboard = Scoreboard(screen, 'Enemies Killed: ', count)
+	count = 0
+	count_update = "Enemies Killed: %d" %count
+	scoreboard = Scoreboard(screen, count_update)
 
 	enemies = Group()
 	bullets = Group() #set bullets
@@ -44,10 +45,7 @@ def run_game():
 			if tick % 50 == 0:
 				enemies.add(Enemy(screen, game_settings))
 			bullets.update() #call the update method in the while loop
-			# theDict = groupcollide(enemies, bullets, True, True)
-			# #print bool(theDict) #if empty...false
-			# if(theDict):
-			# 	print "You hit a monster. Play some winning type music"
+			
 			for enemy in enemies:
 				for bullet in bullets: # get rid of bullets that are off the screen
 					if bullet.rect.bottom <= 0: #bullet bottom is at the top of the screen
@@ -56,6 +54,9 @@ def run_game():
 						bullets.remove(bullet)
 					if enemy.rect.colliderect(bullet.rect):
 						count += 1
+						count_update = "Enemies Killed: %d" %count
+						scoreboard = Scoreboard(screen, count_update)
+						
 						enemies.remove(enemy)
 						bullets.remove(bullet)
 						pygame.mixer.music.load('sounds/win.wav')
