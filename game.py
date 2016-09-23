@@ -6,6 +6,7 @@ from settings import Settings
 import game_functions as gf
 from pygame.sprite import Group
 from start_button import Play_button
+from scoreboard import Scoreboard
 
 #set up the main core function
 def run_game():
@@ -14,6 +15,7 @@ def run_game():
 	screen = pygame.display.set_mode(game_settings.screen_size) #set the screen size with set_mode
 	pygame.display.set_caption("Monster Attack") #set the message on the status bar
 	hero = Hero(screen) # set a variable equal to the class and pass it the screen
+	count = 0
 	
 	#music
 	pygame.mixer.music.load('sounds/music.wav')
@@ -22,15 +24,19 @@ def run_game():
 	# create a play button object and assign to a bar
 	play_button = Play_button(screen, 'Press to begin')
 
+	# create a scoreboard object
+	scoreboard = Scoreboard(screen, 'Enemies Killed: ', count)
+
 	enemies = Group()
 	bullets = Group() #set bullets
 	enemies.add(Enemy(screen, game_settings))
 
 	tick = 0
+	
 
 	while 1: #run this loop forever
 		gf.check_events(hero, bullets, game_settings, screen, play_button) #call gf (aliased from game_functions module) and get the check_events
-		gf.update_screen(game_settings, screen, hero, bullets, enemies, play_button) # call the update_screen method
+		gf.update_screen(game_settings, screen, hero, bullets, enemies, play_button, scoreboard) # call the update_screen method
 		if game_settings.game_active:
 			hero.update() #update the hero flags
 			enemies.update(hero, game_settings.enemy_speed)
@@ -38,19 +44,26 @@ def run_game():
 			if tick % 50 == 0:
 				enemies.add(Enemy(screen, game_settings))
 			bullets.update() #call the update method in the while loop
-			theDict = groupcollide(enemies, bullets, True, True)
-			if(theDict):
+			# theDict = groupcollide(enemies, bullets, True, True)
+			# #print bool(theDict) #if empty...false
+			# if(theDict):
+			# 	print "You hit a monster. Play some winning type music"
 			for enemy in enemies:
 				for bullet in bullets: # get rid of bullets that are off the screen
 					if bullet.rect.bottom <= 0: #bullet bottom is at the top of the screen
 						bullets.remove(bullet) #call remove()
-					# if len(bullets) >= 10:
-					# 	bullets.remove(bullet)
+					if len(bullets) >= 10:
+						bullets.remove(bullet)
 					if enemy.rect.colliderect(bullet.rect):
+						count += 1
 						enemies.remove(enemy)
 						bullets.remove(bullet)
+						pygame.mixer.music.load('sounds/win.wav')
+						pygame.mixer.music.play(0)
 				if enemy.rect.colliderect(hero.rect):
 					print "The monster got you! You died!"
-					exit(0)		
+					pygame.mixer.music.load('sounds/lose.wav')
+					pygame.mixer.music.play(0)
+					# exit(0)		
 							
 run_game() #start the game	

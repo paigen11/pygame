@@ -45,7 +45,7 @@ def check_events(hero, bullets, game_settings, screen, play_button):
 			elif event.key == pygame.K_DOWN: 
 				hero.moving_down = False				
 
-def update_screen(settings, screen, hero, bullets, enemies, play_button):
+def update_screen(settings, screen, hero, bullets, enemies, play_button, scoreboard):
 
 	screen.fill(settings.bg_color) #fill the background with our green
 	hero.draw_me() #call the draw method and put the hero on our screen
@@ -56,6 +56,7 @@ def update_screen(settings, screen, hero, bullets, enemies, play_button):
 
 	if not settings.game_active:	
 		play_button.draw_button()
+	scoreboard.draw_scoreboard()	
 
 	pygame.display.flip()
 

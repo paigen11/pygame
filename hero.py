@@ -1,7 +1,9 @@
 import pygame # duh
 
+
 class Hero(object):
 	def __init__(self, screen):
+		super(Hero, self).__init__()
 		self.screen = screen #give the hero the ability to control the screen
 
 		# Load the hero image, get it's rect
