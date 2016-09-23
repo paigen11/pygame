@@ -14,6 +14,11 @@ def run_game():
 	screen = pygame.display.set_mode(game_settings.screen_size) #set the screen size with set_mode
 	pygame.display.set_caption("Monster Attack") #set the message on the status bar
 	hero = Hero(screen) # set a variable equal to the class and pass it the screen
+	
+	#music
+	pygame.mixer.music.load('sounds/music.wav')
+	pygame.mixer.music.play(-1)
+
 	# create a play button object and assign to a bar
 	play_button = Play_button(screen, 'Press to begin')
 
@@ -33,6 +38,8 @@ def run_game():
 			if tick % 50 == 0:
 				enemies.add(Enemy(screen, game_settings))
 			bullets.update() #call the update method in the while loop
+			theDict = groupcollide(enemies, bullets, True, True)
+			if(theDict):
 			for enemy in enemies:
 				for bullet in bullets: # get rid of bullets that are off the screen
 					if bullet.rect.bottom <= 0: #bullet bottom is at the top of the screen
