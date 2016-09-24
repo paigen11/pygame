@@ -14,8 +14,6 @@ class Enemy(Sprite):
 
 		self.rect.centerx = randint(self.screen_rect.left, self.screen_rect.right)
 		self.rect.top = self.screen_rect.top
-		# self.speed = game_settings.enemy_speed
-		# self.y = self.rect.y
 
 	def update(self, hero, speed = 3):
 		dx, dy = self.rect.x - hero.rect.x, self.rect.y - hero.rect.y
