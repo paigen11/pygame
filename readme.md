@@ -17,13 +17,13 @@ Paige Niedringhaus
 ##Screenshots
 ---
 Start screen when users load up the game
-![alt text]()
+![alt text](https://github.com/paigen11/pygame/blob/master/screenshots/start-screen.png 'start-screen.png')
 
 Game play screen of enemies coming for the player
-![alt text]()
+![alt text](https://github.com/paigen11/pygame/blob/master/screenshots/game-play.png 'game-play.png')
 
 Bullets used to kill enemies and rack up points on the score counter
-![alt text]()
+![alt text](https://github.com/paigen11/pygame/blob/master/screenshots/bullet-time.png 'bullet-time.png')
 
 ##Further Info
 ---
